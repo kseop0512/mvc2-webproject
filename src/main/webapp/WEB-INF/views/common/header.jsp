@@ -39,7 +39,9 @@
   	<button class="btn bc11 modal-open-btn" target="#login-modal">SIGN IN</button>
     <a class="btn bc11" href="/signupFrm.do">SIGN UP</a>
   <%} else { %>
-  	<a class="btn bc11" href="/mypage1.do"><%=m.getMemberName() %></a>
+  	<%-- <a class="btn bc11" href="/mypage1.do"><%=m.getMemberName() %></a> --%>
+  	<%-- 세션에서 마이페이지로 아이디 보냄 (쿼리 스트링 query string)--%>
+  	<a class="btn bc11" href="/mypage2.do?memberId=<%=m.getMemberId()%>"><%=m.getMemberName() %></a>
     <a class="btn bc11" href="/logout.do">LOGOUT</a>  
   <%} %>
   </div>
