@@ -26,6 +26,8 @@ public class MemberService {
 		Connection conn = JDBCTemplate.getConnection();
 		Member m = dao.selectOneMember(conn, memberId);
 		
+		JDBCTemplate.close(conn);
+		
 		return m;
 	}
 
@@ -59,6 +61,22 @@ public class MemberService {
 		return result;
 	}
 
+	public int deleteMember(String memberId) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.deleteMember(conn, memberId);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+
+		return result;
+	}
+
+	
 
 	
 }

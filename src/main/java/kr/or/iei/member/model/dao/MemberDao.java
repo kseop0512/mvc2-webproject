@@ -74,6 +74,9 @@ public class MemberDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
 		}
 		
 		
@@ -126,6 +129,26 @@ public class MemberDao {
 			JDBCTemplate.close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public int deleteMember(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		String query = "delete from member_tbl where member_id=?";
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+				
 		return result;
 	} 
 
