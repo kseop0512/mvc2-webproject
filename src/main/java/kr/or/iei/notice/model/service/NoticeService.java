@@ -1,6 +1,7 @@
 package kr.or.iei.notice.model.service;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import common.JDBCTemplate;
@@ -43,7 +44,7 @@ public class NoticeService {
 		}
 		
 		//지정해줘야할 값 페이지 네비게이션 사이즈
-		int pageNaviSize = 5;
+		int pageNaviSize = 10;
 
 		//페이지 네비게이션 시작번호지정
 		//reqPage 1~5  -> 1 2 3 4 5 
@@ -91,6 +92,80 @@ public class NoticeService {
 		JDBCTemplate.close(conn);
 		
 		return npd;
+	}
+
+	public int insertNotice(Notice n) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.insertNotice(conn, n);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	public Notice selectOneNotice(int noticeNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		//조회수 증가
+		int result = dao.updateReadCount(conn, noticeNo);
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+			Notice n = dao.selectOneNotice(conn, noticeNo);
+			JDBCTemplate.close(conn);
+			return n;
+			
+		} else {
+			JDBCTemplate.rollback(conn);
+			JDBCTemplate.close(conn);
+			//실패했을땐 connection 끊음
+			return null;
+		}
+		
+	}
+
+	public Notice getNotice(int noticeNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		Notice n = dao.selectOneNotice(conn, noticeNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return n;
+	}
+
+	public Notice deleteNotice(int noticeNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		Notice n = dao.selectOneNotice(conn, noticeNo);
+		int result = dao.deleteNotice(conn, noticeNo);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+			n = null;
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return n;
+		
+	}
+
+	public int updateNotice(Notice n) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.updateNotice(conn, n);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
 	}
 	
 }

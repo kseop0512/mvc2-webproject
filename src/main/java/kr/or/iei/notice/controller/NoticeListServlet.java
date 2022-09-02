@@ -3,6 +3,7 @@ package kr.or.iei.notice.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,6 +44,12 @@ public class NoticeListServlet extends HttpServlet {
 		NoticePageData npd = service.selectNoticeList(reqPage);
 	
 		//4. 결과처리
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/notice/noticeList.jsp");
+	
+		request.setAttribute("list", npd.getList());
+		request.setAttribute("pageNavi", npd.getPageNavi());
+		
+		view.forward(request, response);
 	}
 
 	/**
