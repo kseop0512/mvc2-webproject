@@ -38,7 +38,7 @@
 		</form>
 		<form action="/signup.do" method="post">
 			<div class="input-wrap">
-				<label for="memberId">아이디</label>
+				<label for="memberId">아이디<span id="ajaxCheckId" style="margin-left:10px;font-size:14px;"></span></label>
 				<div class="id-wrap">
 					<input type="text" name="memberId" id="memberId" class="input-form">
 					<button type="button" id="idChkBtn" class="btn bc2">중복체크</button>
@@ -81,6 +81,29 @@
 			$("[name=checkIdFrm]").attr("target", "checkId");
 			$("[name=checkIdFrm]").submit();
 			
+			
+		})
+		
+		$("[name=memberId]").on("change", function() {
+			const memberId = $(this).val();
+			//유효성검사 먼저 수행
+			//유효성검사 통과하면 중복체크
+			const span = $("#ajaxCheckId");
+			$.ajax({
+				url :"/ajaxCheckId.do",
+				type : "get",
+				data : {memberId:memberId},
+				success : function(data) {
+					if(data == "1") {
+						span.text("이미 사용중인 아이디 입니다.");
+						span.css("color","red");
+					} else {
+						span.text("사용가능한 아이디 입니다.");
+						span.css("color","blue");
+					}
+				}
+			})
+
 			
 		})
 	</script>

@@ -59,6 +59,19 @@ public class BoardDao {
         String query = "select count(*) as cnt from free_board";
 
 
+        try {
+            pstmt = conn.prepareStatement(query);
+            rset = pstmt.executeQuery();
+            count = rset.getInt("cnt");
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JDBCTemplate.close(rset);
+            JDBCTemplate.close(pstmt);
+        }
+
         return count;
     }
 }

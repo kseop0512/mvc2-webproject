@@ -17,6 +17,7 @@
         <webroots>
           <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
         </webroots>
+        <sourceRoots />
       </configuration>
     </facet>
   </component>
@@ -31,7 +32,12 @@
     <orderEntry type="library" name="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.5" level="application" />
     <orderEntry type="library" name="org.eclipse.jst.j2ee.internal.web.container" level="application" />
     <orderEntry type="library" name="org.eclipse.jst.j2ee.internal.module.container" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.82" level="application_server_libraries" />
+    <orderEntry type="library" name="ojdbc6" level="project" />
+    <orderEntry type="library" name="cos" level="project" />
     <orderEntry type="library" name="servlet-api" level="project" />
-    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="javax.servlet.api" level="project" />
+    <orderEntry type="library" name="json_simple-1.1" level="project" />
+    <orderEntry type="library" name="gson-2.6.2" level="project" />
   </component>
 </module>

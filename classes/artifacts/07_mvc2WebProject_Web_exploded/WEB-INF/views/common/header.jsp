@@ -20,9 +20,9 @@
   <nav>
     <ul class="navi">
       <li><a href="/noticeList.do?reqPage=1">공지사항</a></li><!-- 페이지를 나누기위해 reqPage 할당 -->
-      <li><a href="#">자유게시판</a></li>
-      <li><a href="#">메뉴-3</a></li>
-      <li><a href="#">메뉴-4</a></li>
+      <li><a href="/boardList.do?reqPage=1">자유게시판</a></li>
+      <li><a href="/ajax.do">AJAX</a></li>
+      <li><a href="/photoList.do">사진게시만</a></li>
       <li>
 		<a href="#">메뉴-5</a>
         <ul class="sub-navi">
