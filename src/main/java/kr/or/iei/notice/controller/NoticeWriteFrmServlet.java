@@ -31,7 +31,7 @@ public class NoticeWriteFrmServlet extends HttpServlet {
 		//1. 인코딩
 		request.setCharacterEncoding("utf-8");
 		
-		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/notice/noticeWriteFrm1.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/notice/noticeWriteFrm2.jsp");
 		view.forward(request, response);
 	}
 

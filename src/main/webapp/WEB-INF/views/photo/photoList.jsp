@@ -37,18 +37,50 @@
 				type : "post",
 				data : {start:start, amount:amount},
 				success : function(data) {
-					console.log(data);
-					const imgEl = $("<img>");
+					for(let i=0; i<data.length; i++) {
+						const p = data[i];
+						const div = $("<div></div>");
+						div.addClass("posting-item");
+						const imgDiv = $("<div></div>");
+						imgDiv.addClass("posting-img");
+						const img = $("<img>");
+						img.attr("src", "/upload/photo/" + p.filepath);
+						imgDiv.append(img);
+						
+						const contentDiv = $("<div></div>");
+						contentDiv.addClass("posting-content");
+						const title = $("<p></p>");
+						const content = $("<p></p>");
+						title.text(p.photoTitle);
+						content.text(p.photoContent);
+						contentDiv.append(title);
+						contentDiv.append(content);
+						
+						div.append(imgDiv);
+						div.append(contentDiv);
+						
+						$(".photoWrapper").append(div);
+												
+					}
+					//화면추가완료 후 다음 더보기를 위한 값 수정
+					//value 증가 -> 기존 value + amount
+					 $("#more-btn").val(Number(start)+Number(amount));
+					//currentCount 값도 읽어온 만큼으로 수정
+					const currentCount = Number($("#more-btn").attr("currentCount"))+data.length;
+					$("#more-btn").attr("currentCount",currentCount);
 					
-					imgEl.attr("src", "/upload/photo/" + data[0].filepath);
-					
-					$(".photoWrapper").append(imgEl);
+					const totalCount = $("#more-btn").attr("totalCount");
+					if(currentCount == totalCount) {
+						$("#more-btn").hide();
+						//$("#more-btn").prop("disabled", true);
+					}
 				},
 				error : function() {
 					
 				}
-			})
-		})
+			});
+		});
+		$("#more-btn").click();
 		
 	</script>
 </body>
